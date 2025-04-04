@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clock with Flags</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="container">
+        <canvas id="flag"></canvas>
+        <div id="date"></div>
+        <div id="digital-clock"></div>
+        <svg id="analog-clock" viewBox="-150 -150 300 300" style="display: none;">
+            <circle id="clock-face" cx="0" cy="0" r="140" />
+            <line id="hour-hand" x1="0" y1="0" x2="0" y2="-70" />
+            <line id="minute-hand" x1="0" y1="0" x2="0" y2="-100" />
+            <line id="second-hand" x1="0" y1="0" x2="0" y2="-120" />
+            
+            <!-- Clock numbers will be added by JavaScript -->
+        </svg>
+        <div id="controls">
+            <button id="toggle-style">Digital Clock (D)</button>
+            <button id="toggle-timezone">IST (I)</button>
+            <button id="toggle-flag">Show Flag (F)</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
