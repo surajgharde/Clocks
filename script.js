@@ -1,5 +1,5 @@
   // Global variables
-  let isDigital = true;
+  let isDigital = false;
   let isIST = true;
   let showFlag = false;
   let isLightTheme = false;
