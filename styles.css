@@ -6,12 +6,18 @@ body {
     align-items: center;
     height: 100vh;
     font-family: 'Times New Roman', Times, serif;
+    overflow: hidden;
 }
 
 #container {
     position: relative;
     width: 500px;
     height: 500px;
+    transition: transform 0.5s ease-in-out;
+}
+
+#container:hover {
+    transform: scale(1.05);
 }
 
 #flag {
@@ -19,6 +25,8 @@ body {
     width: 100%;
     height: 100%;
     z-index: 1;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
 }
 
 #date {
@@ -31,6 +39,14 @@ body {
     padding: 10px 20px;
     font-size: 24px;
     z-index: 2;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+}
+
+#date:hover {
+    background-color: rgba(50, 50, 50, 0.9);
+    transform: translateX(-50%) scale(1.1);
 }
 
 #digital-clock {
@@ -44,6 +60,14 @@ body {
     padding: 20px;
     font-size: 28px;
     z-index: 2;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    transition: all 0.5s ease;
+}
+
+#digital-clock:hover {
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+    background-color: rgba(30, 30, 30, 0.9);
 }
 
 #analog-clock {
@@ -54,12 +78,19 @@ body {
     width: 300px;
     height: 300px;
     z-index: 2;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+    transition: filter 0.5s ease;
+}
+
+#analog-clock:hover {
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.7));
 }
 
 #clock-face {
     fill: rgba(0, 0, 0, 0.7);
     stroke: white;
     stroke-width: 2;
+    transition: stroke 0.3s ease;
 }
 
 .hour-mark {
@@ -67,12 +98,20 @@ body {
     font-size: 24px;
     text-anchor: middle;
     dominant-baseline: middle;
+    opacity: 0.8;
+    transition: opacity 0.3s ease, fill 0.3s ease;
+}
+
+.hour-mark:hover {
+    opacity: 1;
+    fill: #ffcc00;
 }
 
 #hour-hand, #minute-hand, #second-hand {
     stroke: white;
     stroke-linecap: round;
     transform-origin: center;
+    transition: stroke 0.3s ease;
 }
 
 #hour-hand {
@@ -85,6 +124,37 @@ body {
 
 #second-hand {
     stroke-width: 2;
+    stroke: #ff6b6b;
+}
+
+#center-dot {
+    fill: white;
+    r: 5;
+}
+
+@keyframes pulse {
+    0% { r: 5; }
+    50% { r: 7; }
+    100% { r: 5; }
+}
+
+#ampm {
+    position: absolute;
+    bottom: 20%;
+    right: 30%;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 5px 10px;
+    font-size: 24px;
+    z-index: 2;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+#ampm:hover {
+    background-color: rgba(50, 50, 50, 0.9);
+    transform: scale(1.1);
 }
 
 #controls {
@@ -98,9 +168,179 @@ body {
     z-index: 3;
     display: flex;
     gap: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+#controls:hover {
+    background-color: rgba(30, 30, 30, 0.9);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
 }
 
 button {
+    padding: 8px 15px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #333;
+    color: white;
+    transition: all 0.3s ease;
+    border: 1px solid #555;
+}
+
+button:hover {
+    background-color: #555;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+button:active {
+    transform: translateY(1px);
+}
+
+.active-button {
+    background-color: #4CAF50;
+    border-color: #4CAF50;
+}
+
+/* Background animation */
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.background-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, #0f0f0f, #252525, #1a1a1a, #303030);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    z-index: -1;
+}
+
+/* Stars animation */
+.star {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle infinite;
+}
+
+@keyframes twinkle {
+    0% { opacity: 0.1; }
+    50% { opacity: 0.8; }
+    100% { opacity: 0.1; }
+}
+
+/* Flag wave animation */
+@keyframes flagWave {
+    0% { transform: skewX(0deg); }
+    25% { transform: skewX(1deg); }
+    50% { transform: skewX(0deg); }
+    75% { transform: skewX(-1deg); }
+    100% { transform: skewX(0deg); }
+}
+
+/* Digital clock animation */
+@keyframes digitalPulse {
+    0% { color: white; text-shadow: 0 0 5px rgba(255, 255, 255, 0.5); }
+    50% { color: #ffcc00; text-shadow: 0 0 15px rgba(255, 204, 0, 0.7); }
+    100% { color: white; text-shadow: 0 0 5px rgba(255, 255, 255, 0.5); }
+}
+
+/* Mode transition animation */
+.fade-transition {
+    animation: fadeTrans 0.5s ease;
+}
+
+@keyframes fadeTrans {
+    0% { opacity: 0; transform: scale(0.9); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+/* Theme toggle */
+#theme-toggle {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    border: 1px solid #555;
+    border-radius: 5px;
     padding: 5px 10px;
     cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+}
+
+#theme-toggle:hover {
+    background: rgba(50, 50, 50, 0.9);
+    transform: scale(1.1);
+}
+
+/* Light theme */
+body.light-theme {
+    background-color: #f5f5f5;
+}
+
+body.light-theme #date,
+body.light-theme #digital-clock,
+body.light-theme #ampm,
+body.light-theme #controls {
+    background-color: rgba(255, 255, 255, 0.8);
+    color: #333;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+body.light-theme #clock-face {
+    fill: rgba(255, 255, 255, 0.8);
+    stroke: #333;
+}
+
+body.light-theme .hour-mark {
+    fill: #333;
+}
+
+body.light-theme #hour-hand,
+body.light-theme #minute-hand {
+    stroke: #333;
+}
+
+body.light-theme #second-hand {
+    stroke: #ff4040;
+}
+
+body.light-theme #center-dot {
+    fill: #333;
+}
+
+body.light-theme .background-animation {
+    background: linear-gradient(45deg, #e0e0e0, #f5f5f5, #e8e8e8, #fff);
+    background-size: 400% 400%;
+}
+
+body.light-theme button {
+    background-color: #ddd;
+    color: #333;
+    border: 1px solid #ccc;
+}
+
+body.light-theme button:hover {
+    background-color: #eee;
+}
+
+body.light-theme .active-button {
+    background-color: #4CAF50;
+    color: white;
+}
+
+body.light-theme #theme-toggle {
+    background: rgba(255, 255, 255, 0.8);
+    color: #333;
+    border: 1px solid #ccc;
 }

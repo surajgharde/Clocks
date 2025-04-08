@@ -7,18 +7,24 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <div class="background-animation"></div>
+    <button id="theme-toggle">Toggle Theme (T)</button>
+    
     <div id="container">
         <canvas id="flag"></canvas>
         <div id="date"></div>
         <div id="digital-clock"></div>
         <svg id="analog-clock" viewBox="-150 -150 300 300" style="display: none;">
             <circle id="clock-face" cx="0" cy="0" r="140" />
+            <!-- Tick marks -->
+            <g id="tick-marks"></g>
             <line id="hour-hand" x1="0" y1="0" x2="0" y2="-70" />
             <line id="minute-hand" x1="0" y1="0" x2="0" y2="-100" />
             <line id="second-hand" x1="0" y1="0" x2="0" y2="-120" />
-            
+            <circle id="center-dot" cx="0" cy="0" r="5" />
             <!-- Clock numbers will be added by JavaScript -->
         </svg>
+        <div id="ampm" style="display: none;"></div>
         <div id="controls">
             <button id="toggle-style">Digital Clock (D)</button>
             <button id="toggle-timezone">IST (I)</button>
